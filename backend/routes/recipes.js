@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/Recipe');
 
+// Retrieve a list of recipes, optionally filtered by ingredients.
 router.get('/', async (req, res) => {
     try {
         const { ingredient = '' } = req.query;
@@ -17,6 +18,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Retrieve a list of all unique ingredients used in recipes.
 router.get('/ingredients', async (req, res) => {
     try {
         const ingredients = await Recipe.distinct('ingredients');
@@ -26,6 +28,7 @@ router.get('/ingredients', async (req, res) => {
     }
 });
 
+// Retrieve a single recipe by its unique ID.
 router.get('/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
